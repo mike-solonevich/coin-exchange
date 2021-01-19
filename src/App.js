@@ -44,13 +44,24 @@ class App extends React.Component {
         },
       ]
     };
+    this.handleRefreshCoinPrice = this.handleRefreshCoinPrice.bind(this);
   }
+
+  handleRefreshCoinPrice(ticker) {
+    const randomPercentage = 0.995 + Math.random() * 0.01;
+    this.setState(state => {
+      // Find our coin by given ticker and update the price.
+      state.coinData.find(coin => coin.ticker === ticker).price *= randomPercentage;
+      return state;
+    });
+  }
+
   render() {
     return (
       <AppWrapper>
         <Header logo={logo} />
         <AccountBalance amount={this.state.balance} />
-        <CoinList coinData={this.state.coinData} />
+        <CoinList coinData={this.state.coinData} handleRefreshCoinPrice={this.handleRefreshCoinPrice}/>
       </AppWrapper>
     );
   }

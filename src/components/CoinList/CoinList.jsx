@@ -2,14 +2,13 @@ import React from 'react';
 import Coin from '../Coin/Coin';
 import styled from 'styled-components';
 const Table = styled.table`
-  margin: 50px auto;
-  display: inline-block;
+  margin: 0 auto;
   font-size: 1.4rem;
 `;
 
 export default function CoinList(props) {
   return (
-    <Table>
+    <Table className="table table-primary table-borders">
       <thead>
         <tr>
           <th>Name</th>
@@ -28,8 +27,8 @@ export default function CoinList(props) {
                 name={coin.name} 
                 ticker={coin.ticker} 
                 balance={coin.balance}
-                price={coin.price} 
-                handleRefreshCoinPrice={props.handleRefreshCoinPrice} 
+                price={coin.price}
+                handleActionButtonClick={props.handleActionButtonClick} 
                 showBalance={props.showBalance} />
         )}
       </tbody>

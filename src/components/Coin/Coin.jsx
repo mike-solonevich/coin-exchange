@@ -4,13 +4,29 @@ import styled from 'styled-components';
 
 const Td = styled.td`
   border: 1px solid #cccccc;
-  width: 25vh;
+  width: 20vh;
+`;
+const TdControls = styled(Td)`
+  width: 25vw;
+`;
+const Button = styled.button`
+  font-size: 18px;
+  width: 200px;
+  margin: 3px 5px;
 `;
 
 export default function Coin(props) { 
-  const handleClick = (event) => {
+  const handleRefresh = (event) => {
     event.preventDefault();
-    props.handleRefreshCoinPrice(props.coinID);
+    props.handleActionButtonClick(props.coinID, 'refresh');
+  }
+  const handleBuy = (event) => {
+    event.preventDefault();
+    props.handleActionButtonClick(props.coinID, 'buy');
+  }
+  const handleSell = (event) => {
+    event.preventDefault();
+    props.handleActionButtonClick(props.coinID, 'sell');
   }
 
   return (
@@ -21,11 +37,13 @@ export default function Coin(props) {
       {props.showBalance &&
         <Td>{props.balance}</Td>
       }
-      <Td>
+      <TdControls>
         <form action="" method="POST">
-          <button onClick={handleClick}>Refresh</button>
+          <Button onClick={handleRefresh} className="btn btn-info">Refresh</Button>
+          <Button onClick={handleBuy} className="btn btn-warning">Buy</Button>
+          <Button onClick={handleSell} className="btn btn-danger">Sell</Button>
         </form>
-      </Td>
+      </TdControls>
     </tr>
   );
 }

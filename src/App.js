@@ -6,6 +6,9 @@ import CoinList from './components/CoinList/CoinList';
 import styled from 'styled-components';
 import axios from 'axios';
 
+import 'bootswatch/dist/flatly/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/js/all';
+
 const AppWrapper = styled.div`
   text-align: center;
   background-color: rgb(20, 56, 97);
@@ -16,7 +19,7 @@ const COIN_COUNT = 5;
 
 function App(props) {
   const [balance, setBalance] = useState(10000);
-  const [showBalance, setShowBalance] = useState(true);
+  const [showBalance, setShowBalance] = useState(false);
   const [coinData, setCoinData] = useState([]);
 
   const componentDidMount = async () => {
@@ -42,8 +45,18 @@ function App(props) {
     }
   });
 
+  const addHelicopterMoney = () => {
+    setBalance(balance + 1200);
+  }
+
   const toggleBalanceVisibility = () => {
     setShowBalance(showBalance => ! showBalance);
+  }
+
+  const handleActionButtonClick = (coinID, action) => {
+    if (action === 'refresh') {
+      handleRefreshCoinPrice(coinID);
+    }
   }
 
   const handleRefreshCoinPrice = async (coinID) => {
@@ -60,8 +73,8 @@ function App(props) {
   return (
     <AppWrapper>
       <Header logo={logo} />
-      <AccountBalance amount={balance} showBalance={showBalance} toggleBalanceVisibility={toggleBalanceVisibility} />
-      <CoinList coinData={coinData} handleRefreshCoinPrice={handleRefreshCoinPrice} showBalance={showBalance} />
+      <AccountBalance amount={balance} addHelicopterMoney={addHelicopterMoney} showBalance={showBalance} toggleBalanceVisibility={toggleBalanceVisibility} />
+      <CoinList coinData={coinData} handleActionButtonClick={handleActionButtonClick} showBalance={showBalance} />
     </AppWrapper>
   );
 }
